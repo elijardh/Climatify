@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_climatify" default="compile.module.climatify">
+  <dirname property="module.climatify.basedir" file="${ant.file.module_climatify}"/>
+  
+  <property name="module.jdk.home.climatify" value=""/>
+  <property name="module.jdk.bin.climatify" value=""/>
+  <property name="module.jdk.classpath.climatify" value=""/>
+  
+  <property name="compiler.args.climatify" value="-encoding UTF-8 -source 11 -target 11 ${compiler.args}"/>
+  
+  <property name="climatify.output.dir" value="${module.climatify.basedir}/out/production/climatify"/>
+  <property name="climatify.testoutput.dir" value="${module.climatify.basedir}/out/test/climatify"/>
+  
+  <path id="climatify.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="climatify.module.production.classpath">
+    <path refid="library.dart_sdk.classpath"/>
+    <path refid="library.dart_packages.classpath"/>
+    <path refid="library.flutter_plugins.classpath"/>
+  </path>
+  
+  <path id="climatify.runtime.production.module.classpath">
+    <pathelement location="${climatify.output.dir}"/>
+    <path refid="library.dart_sdk.classpath"/>
+    <path refid="library.dart_packages.classpath"/>
+    <path refid="library.flutter_plugins.classpath"/>
+  </path>
+  
+  <path id="climatify.module.classpath">
+    <pathelement location="${climatify.output.dir}"/>
+    <path refid="library.dart_sdk.classpath"/>
+    <path refid="library.dart_packages.classpath"/>
+    <path refid="library.flutter_plugins.classpath"/>
+  </path>
+  
+  <path id="climatify.runtime.module.classpath">
+    <pathelement location="${climatify.testoutput.dir}"/>
+    <pathelement location="${climatify.output.dir}"/>
+    <path refid="library.dart_sdk.classpath"/>
+    <path refid="library.dart_packages.classpath"/>
+    <path refid="library.flutter_plugins.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.climatify">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.climatify">
+    <patternset refid="excluded.from.module.climatify"/>
+  </patternset>
+  
+  
+  <target name="compile.module.climatify" depends="compile.module.climatify.production,compile.module.climatify.tests" description="Compile module climatify"/>
+  
+  <target name="compile.module.climatify.production" depends="register.custom.compilers" description="Compile module climatify; production classes"/>
+  
+  <target name="compile.module.climatify.tests" depends="register.custom.compilers,compile.module.climatify.production" description="compile module climatify; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.climatify" description="cleanup module">
+    <delete dir="${climatify.output.dir}"/>
+    <delete dir="${climatify.testoutput.dir}"/>
+  </target>
+</project>
